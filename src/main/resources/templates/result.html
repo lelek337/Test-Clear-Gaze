@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Результат расчёта</title>
+    <style>
+        #graphCanvas {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+  <h2>Результат расчёта</h2>
+  <h3>a = <span th:text="${a}">0</span></h3>
+  <h3>b = <span th:text="${b}">0</span></h3>
+  <h3>c = <span th:text="${c}">0</span></h3>
+  <h3>√(b² - 4ac) = <span th:text="${discriminant}">0</span></h3>
+  <h3>x = <span th:text="${x}">0</span></h3>
+  <h3>y = <span th:text="${y}">0</span></h3>
+
+  <h2>График</h2>
+  <canvas id="graphCanvas" width="550" height="550"></canvas>
+
+  <script>
+    const canvas = document.getElementById('graphCanvas')
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+
+    //Центр координат
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    //Коэфициент масштабирования
+    const scale = 17;
+
+    //Значение x и y
+    const xValue = [[${x}]] ;
+    const yValue = [[${y}]];
+
+    //Очистка графика
+    ctx.clearRect(0, 0, width, height);
+
+    //ресуем оси
+    ctx.beginPath();
+    ctx.moveTo(centerX, 0);
+    ctx.lineTo(centerX, height);
+    ctx.moveTo(0, centerY);
+    ctx.lineTo(width, centerY);
+    ctx.strokeStyle = 'black';
+    ctx.stroke();
+
+    // Отметки на осях
+    for (let i = -15; i <= 15; i++) {
+        ctx.moveTo(centerX + i * scale, centerY - 5);
+        ctx.lineTo(centerX + i * scale, centerY + 5);
+        ctx.strokeText(i, centerX + i * scale - 3, centerY + 15);
+
+        ctx.moveTo(centerX - 5, centerY - i * scale);
+        ctx.lineTo(centerX + 5, centerY - i * scale);
+        ctx.strokeText(i, centerX - 15, centerY - i * scale + 3);
+    }
+    ctx.stroke();
+
+    //Отображение точки (x, y)
+    ctx.beginPath();
+    ctx.arc(centerX + xValue * scale, centerY - yValue * scale, 5, 0, 2 * Math.PI);
+    ctx.fillStyle = 'red';
+    ctx.fill();
+
+    ctx.font = "12px Arial";
+    ctx.fillText('([[${x}]], [[${y}]])', centerX + xValue * scale + 5, centerY - yValue * scale - 5);
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quadratic Equation Solver</title>
+</head>
+<body>
+    <h2>Введите переменные a, b, c для расчета x:</h2>
+    <form action="calculate" method="post">
+        <label>a:</label>
+        <input type="number" step="any" name="a" required><br>
+
+        <label>b:</label>
+        <input type="number" step="any" name="b" required><br>
+
+        <label>c:</label>
+        <input type="number" step="any" name="c" required><br>
+
+        <label>y:</label>
+        <input type="number" step="any" name="y" required><br>
+
+        <label>Получить округлённый результат:</label>
+        <input type="checkbox" name="round" value="true"><br>
+
+        <button type="submit">РАССЧИТАТЬ</button>
+    </form>
+</body>
+</html>
